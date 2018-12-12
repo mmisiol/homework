@@ -1,7 +1,7 @@
 package com.szalkowm.homework.application;
 
-import com.szalkowm.homework.application.validation.ApplicationValidationException;
-import com.szalkowm.homework.application.validation.ValidationRule;
+import com.szalkowm.homework.application.rule.Rule;
+import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
 import com.szalkowm.homework.domain.Loan;
 import com.szalkowm.homework.domain.LoanApplication;
 import lombok.Setter;
@@ -15,14 +15,14 @@ public class LoanGranter {
     private final LoanRepository repository;
 
     @Setter
-    private Collection<ValidationRule> validationRules = Collections.emptyList();
+    private Collection<Rule<LoanApplication>> rules = Collections.emptyList();
 
     public LoanGranter(LoanRepository repository) {
         this.repository = repository;
     }
 
-    public Loan apply(LoanApplication application) throws ApplicationValidationException {
-        runValidation(application);
+    public Loan apply(LoanApplication application) throws BusinessRuleViolationException {
+        runRules(application);
         return createLoan(application);
     }
 
@@ -34,9 +34,9 @@ public class LoanGranter {
         return loan;
     }
 
-    private void runValidation(LoanApplication application) throws ApplicationValidationException {
-        for (ValidationRule rule : this.validationRules) {
-            rule.run(application);
+    private void runRules(LoanApplication application) throws BusinessRuleViolationException {
+        for (Rule<LoanApplication> rule : this.rules) {
+            rule.execute(application);
         }
     }
 }

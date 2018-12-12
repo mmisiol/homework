@@ -12,8 +12,10 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @EnableConfigurationProperties
-@ConfigurationProperties(prefix = "validation")
-public class ValidationProperties {
+@ConfigurationProperties(prefix = "rules.business")
+public class BusinessRulesProperties {
 
     private BigDecimal maxAmount;
+    private Integer minTerm;
+    private Integer maxTerm;
 }

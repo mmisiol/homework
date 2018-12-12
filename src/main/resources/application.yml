@@ -1,4 +1,5 @@
-validation:
-  maxAmount: 20000
-  minTerm: 30
-  maxTerm: 365
+rules:
+  business:
+    maxAmount: 20000
+    minTerm: 30
+    maxTerm: 365
