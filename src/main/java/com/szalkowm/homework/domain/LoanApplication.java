@@ -5,14 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Loan {
-
-    private Integer id;
+public class LoanApplication {
     private BigDecimal amount;
-    private LocalDate dueDate;
+    private int termInDays;
 }
