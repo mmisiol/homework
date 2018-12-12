@@ -2,6 +2,7 @@ package com.szalkowm.homework.infrastructure.rest.controller;
 
 import com.szalkowm.homework.application.LoanFetcher;
 import com.szalkowm.homework.application.LoanGranter;
+import com.szalkowm.homework.application.validation.ApplicationValidationException;
 import com.szalkowm.homework.domain.Loan;
 import com.szalkowm.homework.domain.LoanApplication;
 import com.szalkowm.homework.infrastructure.rest.dto.LoanApplicationDto;
@@ -41,7 +42,7 @@ public class LoanController {
     }
 
     @RequestMapping(value = "/loans", method = RequestMethod.POST)
-    public LoanDto apply(@RequestBody LoanApplicationDto loanApplication) {
+    public LoanDto apply(@RequestBody LoanApplicationDto loanApplication) throws ApplicationValidationException {
         Loan loan = loanGranter.apply(convertToEntity(loanApplication));
         return convertToDto(loan);
     }

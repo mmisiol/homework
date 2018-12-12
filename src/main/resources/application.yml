@@ -1,0 +1,4 @@
+validation:
+  maxAmount: 20000
+  minTerm: 30
+  maxTerm: 365
