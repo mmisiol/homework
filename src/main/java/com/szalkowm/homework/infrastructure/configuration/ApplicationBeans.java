@@ -1,5 +1,6 @@
 package com.szalkowm.homework.infrastructure.configuration;
 
+import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
 import com.szalkowm.homework.application.loan.LoanGranter;
 import com.szalkowm.homework.application.loan.LoanRepository;
@@ -45,9 +46,12 @@ public class ApplicationBeans {
     }
 
     @Bean
-    public LoanController loanController(LoanFetcher loanFetcher, LoanGranter loanGranter) {
-        return new LoanController(loanFetcher, loanGranter);
+    public LoanExtender loanExtender(LoanFetcher loanFetcher, LoanRepository loanRepository, @Value("${extension.term}") Integer extensionDays) {
+        return new LoanExtender(loanFetcher, loanRepository, extensionDays);
     }
 
-
+    @Bean
+    public LoanController loanController(LoanFetcher loanFetcher, LoanGranter loanGranter, LoanExtender loanExtender) {
+        return new LoanController(loanFetcher, loanGranter, loanExtender);
+    }
 }

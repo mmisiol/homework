@@ -38,6 +38,6 @@ public class AmountInTimeRange implements Rule<LoanApplication> {
 
     private boolean inTimeRange() {
         LocalTime now = LocalTime.now();
-        return !now.isBefore(this.from) || !now.isAfter(this.to);
+        return !now.isBefore(this.from) && !now.isAfter(this.to);
     }
 }

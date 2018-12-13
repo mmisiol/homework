@@ -3,7 +3,6 @@ package com.szalkowm.homework.infrastructure.repository;
 import com.szalkowm.homework.application.loan.LoanRepository;
 import com.szalkowm.homework.domain.Loan;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,7 +26,7 @@ public class LocalLoanRepository implements LoanRepository {
     }
 
     @Override
-    public Collection<Loan> getAll() {
-        return this.idToLoan.values();
+    public Loan get(Integer loanId) {
+        return this.idToLoan.get(loanId);
     }
 }

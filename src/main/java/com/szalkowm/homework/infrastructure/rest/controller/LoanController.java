@@ -1,5 +1,6 @@
 package com.szalkowm.homework.infrastructure.rest.controller;
 
+import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
 import com.szalkowm.homework.application.loan.LoanGranter;
 import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
@@ -7,30 +8,24 @@ import com.szalkowm.homework.domain.Loan;
 import com.szalkowm.homework.domain.LoanApplication;
 import com.szalkowm.homework.infrastructure.rest.dto.LoanApplicationDto;
 import com.szalkowm.homework.infrastructure.rest.dto.LoanDto;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LoanController {
 
     private final LoanFetcher loanFetcher;
     private final LoanGranter loanGranter;
+    private final LoanExtender loanExtender;
 
-    public LoanController(LoanFetcher loanFetcher, LoanGranter loanGranter) {
+    public LoanController(LoanFetcher loanFetcher, LoanGranter loanGranter, LoanExtender loanExtender) {
         this.loanFetcher = loanFetcher;
         this.loanGranter = loanGranter;
+        this.loanExtender = loanExtender;
     }
 
-    @RequestMapping("/loans")
-    public Collection<LoanDto> getLoans() {
-        return loanFetcher.getAllLoans().stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    @RequestMapping("/loans/{loanId}")
+    public LoanDto getLoan(@PathVariable Integer loanId) {
+        return convertToDto(loanFetcher.get(loanId));
     }
 
     private LoanDto convertToDto(Loan loan) {
@@ -53,5 +48,10 @@ public class LoanController {
         entity.setAmount(applicationDto.getAmount());
         entity.setTermInDays(applicationDto.getTermInDays());
         return entity;
+    }
+
+    @RequestMapping(value = "/loans/{loanId}/extend", method = RequestMethod.POST)
+    public void extend(@PathVariable Integer loanId) throws BusinessRuleViolationException {
+        loanExtender.extend(loanId);
     }
 }

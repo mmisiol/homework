@@ -6,10 +6,14 @@ rules:
   fraud-detection:
     amount-in-time-range:
       amount: ${rules.business.maxAmount}
-      from: "18:00:00"
-      to: "19:00:00"
+      from: "00:00:00"
+      to: "06:00:00"
 
 
 cost:
   principalPercentage:
     percentage: 10.0
+
+
+extension:
+  term: 30

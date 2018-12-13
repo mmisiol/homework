@@ -2,8 +2,6 @@ package com.szalkowm.homework.application.loan;
 
 import com.szalkowm.homework.domain.Loan;
 
-import java.util.Collection;
-
 public class LoanFetcher {
 
     private final LoanRepository repository;
@@ -12,7 +10,11 @@ public class LoanFetcher {
         this.repository = loanRepository;
     }
 
-    public Collection<Loan> getAllLoans() {
-        return this.repository.getAll();
+    public Loan get(Integer loanId) {
+        Loan loan = this.repository.get(loanId);
+        if (loan == null) {
+            throw new LoanNotFoundException("Can't find loan with id:" + loanId);
+        }
+        return loan;
     }
 }
