@@ -32,10 +32,10 @@ public class ApplicationBeans {
 
     @Bean
     public LoanGranter loanGranter(LoanRepository loanRepository,
-                                   Collection<Rule<LoanApplication>> businessRules,
+                                   Collection<Rule<LoanApplication>> rules,
                                    CostCalculator costCalculator) {
         LoanGranter loanGranter = new LoanGranter(loanRepository, costCalculator);
-        loanGranter.setRules(businessRules);
+        loanGranter.setRules(rules);
         return loanGranter;
     }
 
