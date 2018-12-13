@@ -3,3 +3,7 @@ rules:
     maxAmount: 20000
     minTerm: 30
     maxTerm: 365
+
+cost:
+  principalPercentage:
+    percentage: 10.0

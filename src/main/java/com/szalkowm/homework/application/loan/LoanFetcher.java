@@ -1,4 +1,4 @@
-package com.szalkowm.homework.application;
+package com.szalkowm.homework.application.loan;
 
 import com.szalkowm.homework.domain.Loan;
 

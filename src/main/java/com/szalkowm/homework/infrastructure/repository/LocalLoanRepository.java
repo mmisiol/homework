@@ -1,6 +1,6 @@
 package com.szalkowm.homework.infrastructure.repository;
 
-import com.szalkowm.homework.application.LoanRepository;
+import com.szalkowm.homework.application.loan.LoanRepository;
 import com.szalkowm.homework.domain.Loan;
 
 import java.util.Collection;

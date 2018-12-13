@@ -1,7 +1,7 @@
 package com.szalkowm.homework.infrastructure.rest.controller;
 
-import com.szalkowm.homework.application.LoanFetcher;
-import com.szalkowm.homework.application.LoanGranter;
+import com.szalkowm.homework.application.loan.LoanFetcher;
+import com.szalkowm.homework.application.loan.LoanGranter;
 import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
 import com.szalkowm.homework.domain.Loan;
 import com.szalkowm.homework.domain.LoanApplication;
@@ -37,6 +37,7 @@ public class LoanController {
         LoanDto dto = new LoanDto();
         dto.setAmount(loan.getAmount());
         dto.setDueDate(loan.getDueDate());
+        dto.setCost(loan.getCost());
         dto.setId(loan.getId());
         return dto;
     }

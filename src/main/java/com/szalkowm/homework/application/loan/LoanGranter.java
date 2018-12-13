@@ -1,5 +1,6 @@
-package com.szalkowm.homework.application;
+package com.szalkowm.homework.application.loan;
 
+import com.szalkowm.homework.application.loan.cost.CostCalculator;
 import com.szalkowm.homework.application.rule.Rule;
 import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
 import com.szalkowm.homework.domain.Loan;
@@ -13,12 +14,14 @@ import java.util.Collections;
 public class LoanGranter {
 
     private final LoanRepository repository;
+    private final CostCalculator costCalculator;
 
     @Setter
     private Collection<Rule<LoanApplication>> rules = Collections.emptyList();
 
-    public LoanGranter(LoanRepository repository) {
+    public LoanGranter(LoanRepository repository, CostCalculator costCalculator) {
         this.repository = repository;
+        this.costCalculator = costCalculator;
     }
 
     public Loan apply(LoanApplication application) throws BusinessRuleViolationException {
@@ -30,6 +33,8 @@ public class LoanGranter {
         Loan loan = new Loan();
         loan.setAmount(application.getAmount());
         loan.setDueDate(LocalDate.now().plusDays(((long) application.getTermInDays())));
+        loan.setCost(this.costCalculator.calculateCost(application));
+
         loan.setId(this.repository.add(loan));
         return loan;
     }
