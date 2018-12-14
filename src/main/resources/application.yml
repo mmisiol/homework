@@ -9,7 +9,6 @@ rules:
       from: "00:00:00"
       to: "06:00:00"
 
-
 cost:
   principalPercentage:
     percentage: 10.0
