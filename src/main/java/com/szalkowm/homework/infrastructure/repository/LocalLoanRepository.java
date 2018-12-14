@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LocalLoanRepository implements LoanRepository {
 
     private final Map<Integer, Loan> idToLoan = new ConcurrentHashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger();
+    private final AtomicInteger nextId = new AtomicInteger(1);
 
     @Override
     public Integer add(Loan loan) {
