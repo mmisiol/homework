@@ -39,6 +39,7 @@ public class LoanControllerIntegrationTest {
         LoanDto loanDto = responseEntity.getBody();
 
         assertNotNull(loanDto);
+        assertNotNull(loanDto.getId());
         assertEquals(0, new BigDecimal("1000").compareTo(loanDto.getAmount()));
         assertEquals(0, new BigDecimal("100").compareTo(loanDto.getCost()));
         assertEquals(LocalDate.now().plusDays(60), loanDto.getDueDate());
