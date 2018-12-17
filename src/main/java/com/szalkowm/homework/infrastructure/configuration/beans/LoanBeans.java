@@ -2,10 +2,8 @@ package com.szalkowm.homework.infrastructure.configuration.beans;
 
 import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
-import com.szalkowm.homework.application.loan.LoanGranter;
 import com.szalkowm.homework.application.loan.LoanRepository;
-import com.szalkowm.homework.application.loan.cost.CostCalculator;
-import com.szalkowm.homework.application.loan.cost.PrincipalPercentage;
+import com.szalkowm.homework.application.loan.granting.PrincipalPercentage;
 import com.szalkowm.homework.application.rule.Rule;
 import com.szalkowm.homework.domain.LoanApplication;
 import com.szalkowm.homework.infrastructure.repository.LocalLoanRepository;
@@ -32,17 +30,12 @@ public class LoanBeans {
     }
 
     @Bean
-    public LoanGranter loanGranter(LoanRepository loanRepository,
-                                   Collection<Rule<LoanApplication>> rules,
-                                   CostCalculator costCalculator) {
-        LoanGranter loanGranter = new LoanGranter(loanRepository, costCalculator);
-        loanGranter.setRules(rules);
-        return loanGranter;
-    }
-
-    @Bean
-    public CostCalculator costCalculator(@Value("${cost.principalPercentage.percentage}") BigDecimal percentage) {
-        return new PrincipalPercentage(percentage);
+    public PrincipalPercentage grantingStrategy(LoanRepository loanRepository,
+                                                Collection<Rule<LoanApplication>> rules,
+                                                @Value("${cost.principalPercentage.percentage}") BigDecimal percentage) {
+        PrincipalPercentage principalPercentage = new PrincipalPercentage(loanRepository, percentage);
+        principalPercentage.setRules(rules);
+        return principalPercentage;
     }
 
     @Bean
@@ -51,7 +44,7 @@ public class LoanBeans {
     }
 
     @Bean
-    public LoanController loanController(LoanFetcher loanFetcher, LoanGranter loanGranter, LoanExtender loanExtender) {
-        return new LoanController(loanFetcher, loanGranter, loanExtender);
+    public LoanController loanController(LoanFetcher loanFetcher, PrincipalPercentage principalPercentage, LoanExtender loanExtender) {
+        return new LoanController(loanFetcher, principalPercentage, loanExtender);
     }
 }

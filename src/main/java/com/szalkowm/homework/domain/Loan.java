@@ -16,4 +16,5 @@ public class Loan {
     private BigDecimal amount;
     private BigDecimal cost;
     private LocalDate dueDate;
+
 }

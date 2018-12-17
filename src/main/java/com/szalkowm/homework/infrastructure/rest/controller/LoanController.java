@@ -2,7 +2,7 @@ package com.szalkowm.homework.infrastructure.rest.controller;
 
 import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
-import com.szalkowm.homework.application.loan.LoanGranter;
+import com.szalkowm.homework.application.loan.granting.GrantingStrategy;
 import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
 import com.szalkowm.homework.domain.Loan;
 import com.szalkowm.homework.domain.LoanApplication;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class LoanController {
 
     private final LoanFetcher loanFetcher;
-    private final LoanGranter loanGranter;
+    private final GrantingStrategy grantingStrategy;
     private final LoanExtender loanExtender;
 
-    public LoanController(LoanFetcher loanFetcher, LoanGranter loanGranter, LoanExtender loanExtender) {
+    public LoanController(LoanFetcher loanFetcher, GrantingStrategy grantingStrategy, LoanExtender loanExtender) {
         this.loanFetcher = loanFetcher;
-        this.loanGranter = loanGranter;
+        this.grantingStrategy = grantingStrategy;
         this.loanExtender = loanExtender;
     }
 
@@ -39,7 +39,7 @@ public class LoanController {
 
     @RequestMapping(value = "/loans", method = RequestMethod.POST)
     public LoanDto apply(@RequestBody LoanApplicationDto loanApplication) throws BusinessRuleViolationException {
-        Loan loan = loanGranter.apply(convertToEntity(loanApplication));
+        Loan loan = this.grantingStrategy.apply(convertToEntity(loanApplication));
         return convertToDto(loan);
     }
 

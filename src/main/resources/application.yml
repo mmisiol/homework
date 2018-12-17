@@ -12,7 +12,7 @@ rules:
 
 cost:
   principalPercentage:
-    percentage: 10.0
+    percentage: 0.1
 
 
 extension:
