@@ -1,5 +1,6 @@
 rules:
   business:
+    minAmount: 1000
     maxAmount: 20000
     minTerm: 30
     maxTerm: 365

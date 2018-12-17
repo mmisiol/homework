@@ -1,6 +1,6 @@
 package com.szalkowm.homework.infrastructure.configuration;
 
-import com.szalkowm.homework.application.rule.business.MaxAmount;
+import com.szalkowm.homework.application.rule.business.AmountRange;
 import com.szalkowm.homework.application.rule.business.TermRange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,11 @@ import org.springframework.context.annotation.Configuration;
 public class BusinessRulesBeans {
 
     @Bean
-    public MaxAmount maxAmount(BusinessRulesProperties businessRulesProperties) {
-        return new MaxAmount(businessRulesProperties.getMaxAmount());
+    public AmountRange amountRange(BusinessRulesProperties businessRulesProperties) {
+        return new AmountRange(
+                businessRulesProperties.getMinAmount(),
+                businessRulesProperties.getMaxAmount()
+        );
     }
 
     @Bean

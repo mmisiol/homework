@@ -7,18 +7,22 @@ import java.math.BigDecimal;
 
 import static java.lang.String.format;
 
-public class MaxAmount implements Rule<LoanApplication> {
+public class AmountRange implements Rule<LoanApplication> {
 
+    private static final String MSG_PATTERN = "Amount has to be between %s and %s.";
+
+    private final BigDecimal minAmount;
     private final BigDecimal maxAmount;
 
-    public MaxAmount(BigDecimal maxAmount) {
+    public AmountRange(BigDecimal minAmount, BigDecimal maxAmount) {
+        this.minAmount = minAmount;
         this.maxAmount = maxAmount;
     }
 
     @Override
     public void execute(LoanApplication loanApplication) {
         hasAmount(loanApplication.getAmount());
-        amountLessOrEqualMax(loanApplication.getAmount());
+        amountInRange(loanApplication.getAmount());
     }
 
     private void hasAmount(BigDecimal amount) throws BusinessRuleViolationException {
@@ -27,9 +31,9 @@ public class MaxAmount implements Rule<LoanApplication> {
         }
     }
 
-    private void amountLessOrEqualMax(BigDecimal amount) throws BusinessRuleViolationException {
-        if (this.maxAmount.compareTo(amount) < 0) {
-            throw new BusinessRuleViolationException(format("Max amount %s exceeded", this.maxAmount));
+    private void amountInRange(BigDecimal amount) throws BusinessRuleViolationException {
+        if (this.maxAmount.compareTo(amount) < 0 || this.minAmount.compareTo(amount) > 0) {
+            throw new BusinessRuleViolationException(format(MSG_PATTERN, this.minAmount, this.maxAmount));
         }
     }
 }

@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "rules.business")
 public class BusinessRulesProperties {
-
     private BigDecimal maxAmount;
+    private BigDecimal minAmount;
     private Integer minTerm;
     private Integer maxTerm;
 }
