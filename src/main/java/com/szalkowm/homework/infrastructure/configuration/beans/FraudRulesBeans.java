@@ -1,7 +1,8 @@
-package com.szalkowm.homework.infrastructure.configuration;
+package com.szalkowm.homework.infrastructure.configuration.beans;
 
 import com.szalkowm.homework.application.rule.fraud.AmountInTimeRange;
 import com.szalkowm.homework.application.time.TimeRange;
+import com.szalkowm.homework.infrastructure.configuration.property.FraudRulesProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

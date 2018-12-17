@@ -1,4 +1,4 @@
-package com.szalkowm.homework.infrastructure.configuration;
+package com.szalkowm.homework.infrastructure.configuration.property;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.szalkowm.homework.infrastructure.configuration;
+package com.szalkowm.homework.infrastructure.configuration.beans;
 
 import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 @Configuration
-public class ApplicationBeans {
+public class LoanBeans {
 
 
     @Bean
