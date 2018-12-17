@@ -1,7 +1,7 @@
 package com.szalkowm.homework.infrastructure.rest.controller;
 
-import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
+import com.szalkowm.homework.application.loan.extension.LoanExtender;
 import com.szalkowm.homework.application.loan.granting.GrantingStrategy;
 import com.szalkowm.homework.application.rule.business.BusinessRuleViolationException;
 import com.szalkowm.homework.domain.Loan;

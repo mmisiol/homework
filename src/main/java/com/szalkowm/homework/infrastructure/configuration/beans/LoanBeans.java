@@ -1,8 +1,10 @@
 package com.szalkowm.homework.infrastructure.configuration.beans;
 
-import com.szalkowm.homework.application.loan.LoanExtender;
 import com.szalkowm.homework.application.loan.LoanFetcher;
 import com.szalkowm.homework.application.loan.LoanRepository;
+import com.szalkowm.homework.application.loan.extension.FixedTermExtender;
+import com.szalkowm.homework.application.loan.extension.LoanExtender;
+import com.szalkowm.homework.application.loan.granting.GrantingStrategy;
 import com.szalkowm.homework.application.loan.granting.PrincipalPercentage;
 import com.szalkowm.homework.application.rule.Rule;
 import com.szalkowm.homework.domain.LoanApplication;
@@ -39,12 +41,18 @@ public class LoanBeans {
     }
 
     @Bean
-    public LoanExtender loanExtender(LoanFetcher loanFetcher, LoanRepository loanRepository, @Value("${extension.term}") Integer extensionDays) {
-        return new LoanExtender(loanFetcher, loanRepository, extensionDays);
+    public FixedTermExtender fixedTermExtender(
+            LoanFetcher loanFetcher,
+            LoanRepository loanRepository,
+            @Value("${extension.term}") Integer extensionDays) {
+        return new FixedTermExtender(loanFetcher, loanRepository, extensionDays);
     }
 
     @Bean
-    public LoanController loanController(LoanFetcher loanFetcher, PrincipalPercentage principalPercentage, LoanExtender loanExtender) {
-        return new LoanController(loanFetcher, principalPercentage, loanExtender);
+    public LoanController loanController(
+            LoanFetcher loanFetcher,
+            GrantingStrategy grantingStrategy,
+            LoanExtender loanExtender) {
+        return new LoanController(loanFetcher, grantingStrategy, loanExtender);
     }
 }
