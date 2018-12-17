@@ -1,3 +1,5 @@
+package com.szalkowm.homework.application.time;
+
 import com.szalkowm.homework.application.time.TimeRange;
 import org.junit.Assert;
 import org.junit.Test;
